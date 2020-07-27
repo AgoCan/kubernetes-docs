@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-jupyter
+  labels:
+    name: ingress-jupyter
+    app: jupyter
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /jupyter/
+        backend:
+          serviceName: hank-jupyterlab01-svc
+          servicePort: 80
+# 此ingress访问的时候需要在最后加上/ 不然出现跳转会把端口号直接去掉（暂时测试如此）

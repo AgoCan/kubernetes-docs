@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hank-web01
+  labels:
+    name: hank-web01
+    app: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: hank-web01
+      app: web
+  template:
+    metadata:
+      labels:
+        name: hank-web01
+        app: web
+    spec:
+      containers:
+      - name: webapp
+        image: hank997/webapp:v1

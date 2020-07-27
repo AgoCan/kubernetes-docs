@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp01
+  labels:
+    app: web
+    env: prd
+spec:
+  containers:
+  - name: webapp
+    image: hank997/webapp:v1

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hank-jupyterlab01
+  labels:
+    name: hank-jupyterlab01
+    app: jupyter
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: hank-jupyterlab01
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        name: hank-jupyterlab01
+        app: jupyter
+    spec:
+      containers:
+      - name: jupyter
+        image: hank997/jupyterlab:v1.0.0

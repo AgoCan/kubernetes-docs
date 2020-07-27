@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: device-container
+    image: hank997/webapp:v1
+    volumeDevices:
+    - name: test-deivce
+      devicePath: "/dev/sda"
+  volumes:
+  - name: test-deivce
+    persistentVolumeClaim:
+      claimName: example-pvc

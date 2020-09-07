@@ -3,10 +3,10 @@
 如果要拆除群集并启动一个新群集，请注意以下需要清除的资源：
 
 - `rook-ceph`名称空间：由`operator.yaml`和创建的`Rook`运算符和集群`cluster.yaml`（集群CRD）
-- `/var/lib/rook`：集群中每台主机上的路径，其中`ceph mons`和`osds`缓存配置  
+- `/var/lib/rook`：集群中每台主机上的路径，其中`ceph mons`和`osds`缓存配置
 请注意，如果您更改了默认名称空间或路径（例如`dataDirHostPath`示例`yaml`文件中的路径），则需要在这些说明中调整这些名称空间和路径。
 
-**删除块和文件工件**  
+**删除块和文件工件**
 首先，您需要清理在Rook群集顶部创建的资源
 
 这些命令将从块和文件演练中清除资源（卸载卷，删除卷声明等）。如果您没有完成本演练的那些部分，则可以跳过以下说明：
@@ -20,7 +20,7 @@ kubectl delete -f csi/cephfs/kube-registry.yaml
 kubectl delete storageclass rook-cephfs
 ```
 
-**删除CephCluster CRD**  
+**删除CephCluster CRD**
 
 在清除了这些块和文件资源之后，您可以删除Rook群集。在删除Rook运算符和代理之前，删除它非常重要，否则资源可能无法正确清理。
 
@@ -32,13 +32,13 @@ kubectl -n rook-ceph delete cephcluster rook-ceph
 ```bash
 kubectl -n rook-ceph get cephcluster
 ```
-**删除操作员和相关资源**  
+**删除操作员和相关资源**
 这将开始Rook Ceph运算符以及所有其他资源的清理过程。这包括相关资源，例如代理程序和使用以下命令的发现守护程序集：
 ```bash
 kubectl delete -f operator.yaml
 kubectl delete -f common.yaml
 ```
-**删除主机上的数据**  
+**删除主机上的数据**
 
 重要说明：最后的清理步骤要求删除群集中每个主机上的文件。`dataDirHostPath`群集CRD中指定的属性下的所有文件都需要删除。否则，在启动新群集时将保持不一致的状态。
 
@@ -90,7 +90,7 @@ kubectl -n rook-ceph get cephcluster
 
 创建群集CRD时，Rook运算符会自动添加终结器。使用终结器，操作员可以确保删除群集CRD之前，将清除所有块和文件安装。如果没有适当的清理，则占用存储空间的Pod将无限期地挂起，直到系统重新启动为止。
 
-清洁安装座后，操作员负责卸下终结器。如果由于某种原因操作员无法删除终结器（即，该操作器不再运行），则可以使用以下命令手动删除终结器：  
+清洁安装座后，操作员负责卸下终结器。如果由于某种原因操作员无法删除终结器（即，该操作器不再运行），则可以使用以下命令手动删除终结器：
 
 ```
 kubectl -n rook-ceph patch crd cephclusters.ceph.rook.io --type merge -p '{"metadata":{"finalizers": [null]}}'
@@ -98,6 +98,12 @@ kubectl -n rook-ceph patch crd cephclusters.ceph.rook.io --type merge -p '{"meta
 
 在几秒钟内，您应该看到群集CRD已被删除，并且将不再阻止其他清理操作，例如删除rook-ceph名称空间。
 
+**没删除成功**
+
+```
+kubectl api-resources -o name --verbs=list --namespaced| xargs -n 1 kubectl get --show-kind --ignore-not-found -n rook-ceph
+kubectl -n rook-ceph patch cephcluster.ceph.rook.io rook-ceph -p '{"metadata": {"finalizers": []}}' --type=merge
+```
 
 # faq
 
@@ -113,7 +119,7 @@ debug 2019-12-12 03:24:27.368 7f3d2c10edc0 -1 missing 'type' file and unable to 
 
 删除后，重新安装上会出现`osd`的pod起不来。解决方案如下
 
-[参考文档](https://gist.github.com/cheethoe/49d9c1d0003e44423e54a060e0b3fbf1)  
+[参考文档](https://gist.github.com/cheethoe/49d9c1d0003e44423e54a060e0b3fbf1)
 此文档或者需要科学上网
 
 原文：
@@ -163,6 +169,9 @@ debug 2019-12-12 03:24:27.368 7f3d2c10edc0 -1 missing 'type' file and unable to 
 
 自己修改并且启动
 
-因为`osd`对磁盘类型，等一系列的选型问题。所以导致的创建失败。  
-所以需要修改`cluster.yaml`的`useAllDevices: `值改成`true`重新创建即可  
-[参考文档](https://rook.io/docs/rook/v1.1/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices)  
+因为`osd`对磁盘类型，等一系列的选型问题。所以导致的创建失败。
+所以需要修改`cluster.yaml`的`useAllDevices: `值改成`true`重新创建即可
+
+
+
+[参考文档](https://rook.io/docs/rook/v1.1/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices)

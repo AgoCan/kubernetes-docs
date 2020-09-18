@@ -121,6 +121,7 @@ metadata:
   namespace: cert-manager-test
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    # kubernetes.io/tls-acme: "true" 是自动生成证书的注释
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:

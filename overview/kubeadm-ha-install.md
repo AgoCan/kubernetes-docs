@@ -92,20 +92,20 @@ global
     #    local2.*                       /var/log/haproxy.log
     #
     log         127.0.0.1 local2
-    
+
     chroot      /var/lib/haproxy
     pidfile     /var/run/haproxy.pid
     maxconn     4000
     user        haproxy
     group       haproxy
-    daemon 
-       
+    daemon
+
     # turn on stats unix socket
     stats socket /var/lib/haproxy/stats
 #---------------------------------------------------------------------
 # common defaults that all the 'listen' and 'backend' sections will
 # use if not designated in their block
-#---------------------------------------------------------------------  
+#---------------------------------------------------------------------
 defaults
     mode                    http
     log                     global
@@ -125,12 +125,12 @@ defaults
     maxconn                 3000
 #---------------------------------------------------------------------
 # kubernetes apiserver frontend which proxys to the backends
-#--------------------------------------------------------------------- 
+#---------------------------------------------------------------------
 frontend kubernetes-apiserver
     mode                 tcp
     bind                 *:16443
     option               tcplog
-    default_backend      kubernetes-apiserver    
+    default_backend      kubernetes-apiserver
 #---------------------------------------------------------------------
 # round robin balancing between the various backends
 #---------------------------------------------------------------------
@@ -193,25 +193,25 @@ certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
 controlPlaneEndpoint: "192.168.126.41:16443"
 controllerManager: {}
-dns: 
+dns:
   type: CoreDNS
 etcd:
-  local:    
+  local:
     dataDir: /var/lib/etcd
 imageRepository: registry.aliyuncs.com/google_containers
 kind: ClusterConfiguration
 kubernetesVersion: v1.19.0
-networking: 
-  dnsDomain: cluster.local  
+networking:
+  dnsDomain: cluster.local
   podSubnet: 10.244.0.0/16
   serviceSubnet: 10.1.0.0/16
 scheduler: {}
 EOF
 ```
 
-init kubeadm 
+init kubeadm
 ```
-kubeadm init --config kubeadm-config.yaml 
+kubeadm init --config kubeadm-config.yaml
 ```
 
 
@@ -219,7 +219,8 @@ kubeadm init --config kubeadm-config.yaml
 
 ```
 for i in 192.168.126.45 192.168.126.46
-do 
+do
+    ssh root@$i mkdir -p /etc/kubernetes/pki
     scp /etc/kubernetes/pki/{ca.*,sa.*,front-proxy-ca.*} root@$i:/etc/kubernetes/pki
     scp /etc/kubernetes/pki/etcd/ca.* root@$i:/etc/kubernetes/pki/etcd
     scp /etc/kubernetes/admin.conf root@$i:/etc/kubernetes

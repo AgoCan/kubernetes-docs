@@ -220,7 +220,7 @@ kubeadm init --config kubeadm-config.yaml
 ```
 for i in 192.168.126.45 192.168.126.46
 do
-    ssh root@$i mkdir -p /etc/kubernetes/pki
+    ssh root@$i mkdir -p /etc/kubernetes/pki /etc/kubernetes/pki/etcd
     scp /etc/kubernetes/pki/{ca.*,sa.*,front-proxy-ca.*} root@$i:/etc/kubernetes/pki
     scp /etc/kubernetes/pki/etcd/ca.* root@$i:/etc/kubernetes/pki/etcd
     scp /etc/kubernetes/admin.conf root@$i:/etc/kubernetes

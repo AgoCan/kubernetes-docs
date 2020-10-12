@@ -167,7 +167,7 @@ docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1
 ```
 脚本方式
 ```bash
-for name in kube-controller-manager:v1.15.2 kube-scheduler:v1.15.2 kube-proxy:v1.15.2 pause:3.1 etcd:3.3.10 coredns:1.3.1 kube-apiserver:v1.15.2
+for name in `kubeadm config images list 2>/dev/null | awk -F "/" '{print $2}'`
 do
 docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/$name
 docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/$name k8s.gcr.io/$name

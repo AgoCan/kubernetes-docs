@@ -172,30 +172,33 @@ kubectl -n devops-ns exec -it  kubectl kubectl get pod
 ## pipeline
 pipeline语法 https://www.w3cschool.cn/jenkins/jenkins-jg9528pb.html
 
-插件地址： https://github.com/jenkinsci/kubernetes-plugin  
+插件地址： https://github.com/jenkinsci/kubernetes-plugin
 
 此处使用了 `docker in docker`的模式操作，所以需要挂载一个socket进行使用
 
 如果使用到了nvidia的话，请加上`environment`指令
 
+在`podTemplate`下面加上使用的`serviceAccount`的名称，`serviceAccount: "kubectl"`，并且，上面使用的是`cluster-admin`的权限，需要自行注意使用`rbac`的方式
+
+`  secretVolume(secretName: 'kube-config',mountPath: "/root/.kube", subPath:"config")`原本volumes是加上这句话，使用挂载的方式，这种不太友好
+
 ```
 **[terminal]
 def label = "worker-${UUID.randomUUID().toString()}"
 
-podTemplate(label: label, containers: [
+podTemplate(label: label, serviceAccount: "kubectl",containers: [
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: 'hank997/kubectl:1.15.9', command: 'cat', ttyEnabled: true)
 ],
 volumes: [
-  hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-  secretVolume(secretName: 'kube-config',mountPath: "/root/.kube", subPath:"config")
+  hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]) {
   node(label) {
     stage("check out"){git  credentialsId: '3c210def-c000-5d2a-9b2d-838986a6b1sd', url: 'https://github.com/AgoCan/go-helloworld.git'}注释 //s't
     stage('Create Docker images') {
       container('docker') {
           sh """
-            docker login -u admin --password Harbor12345  
+            docker login -u admin --password Harbor12345
             docker build -t hank997/hello-go:v2 .
             docker push hank997/hello-go:v2
             """

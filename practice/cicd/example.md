@@ -194,7 +194,7 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]) {
   node(label) {
-    stage("check out"){git  credentialsId: '3c210def-c000-5d2a-9b2d-838986a6b1sd', url: 'https://github.com/AgoCan/go-helloworld.git'}注释 //s't
+    stage("check out"){git  credentialsId: '3c210def-c000-5d2a-9b2d-838986a6b1sd', url: 'https://github.com/AgoCan/go-helloworld.git'}
     stage('Create Docker images') {
       container('docker') {
           sh """

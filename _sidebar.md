@@ -104,6 +104,7 @@
     * [12.1 部署jenkins](practice/cicd/deploy-jenkins.md)
     * [12.2 pipeline](practice/cicd/apply-k8s-plugins.md)
     * [12.3 案例](practice/cicd/example.md)
+    * [12.4 git-parameter](practice/cicd/git-parameter-example.md)
   * [13. Istio](practice/istio/)
     * [13.1 部署Istio](practice/istio/istio-install.md)
   * [14. kompose](practice/kompose/)

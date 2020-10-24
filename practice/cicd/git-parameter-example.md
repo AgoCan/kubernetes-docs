@@ -13,7 +13,9 @@
     - git-parameter:0.9.13
     - git-tag-message:1.7.1
 ```
+使用`git-parameter`插件的时候第一次需要先把代码`clone`下来。不然`pipeline`获取不到`tag`标签
 
+而`clone`的方式就是先执行一遍，这样肯定不对，方式方法还得寻找中
 ```
 def label = "worker-${UUID.randomUUID().toString()}"
 parameters {

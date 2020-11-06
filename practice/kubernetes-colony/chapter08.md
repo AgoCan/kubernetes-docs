@@ -44,14 +44,14 @@ systemctl restart docker
 ## 部署kubelet
 
 > bootstrap: 使用谷歌翻译会得到:"引导程序"，它是一种**技术**， 一种通过一些初始指令将程序加载到计算机中的技术，该初始指令允许从输入设备中引入其余程序。
-> TLS: 安全传输层协议.   
+> TLS: 安全传输层协议.
 > TLS bootstrap: 在Kubernetes集群中，工作程序节点上的组件（kubelet和kube-proxy）需要与Kubernetes主组件（特别是kube-apiserver）通信。为了确保通信保持私密，不受干扰，并确保群集的每个组件都在与另一个受信任的组件通信。
 
 *上面都是官话，个人理解就是： 它是一种技术，解决链接的初始化问题*
 
-都在master执行，除了 `kubelet.service`这个文件，这个文件注意配置好即可，主要是节点名称  
+都在master执行，除了 `kubelet.service`这个文件，这个文件注意配置好即可，主要是节点名称
 
-文档： https://kubernetes.io/docs/reference/access-authn-authz/rbac/  
+文档： https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 
 ```bash
 /usr/local/bin/kubectl create clusterrolebinding kubelet-bootstrap --clusterrole=system:node-bootstrapper --user=kubelet-bootstrap
@@ -249,7 +249,7 @@ NAME            STATUS                     ROLES    AGE   VERSION
 
   /usr/local/bin/kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
   ```
-  并且移动到新节点上。  
+  并且移动到新节点上。
   直接复制其他节点的话，会出现
 
   ```

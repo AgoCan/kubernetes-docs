@@ -31,8 +31,11 @@
 
 ## 问题2: 日志报错找不到网卡，node节点起不来
 
+出现 `0/1`的问题，说明健康检查不通过， `describe` 查看一下，一般来说也是网卡找不到的原因。
+```
+kube-system   calico-node-rch2w                        0/1     Running   0          11h
+```
 下面的日志 网卡找不到 `[enp2s0]`
-
 ```
 [root@test15 ~]# kubectl logs  calico-node-zdtnr -n kube-system
 2020-03-11 09:11:36.015 [INFO][8] startup.go 259: Early log level set to info
@@ -59,7 +62,13 @@ Calico node failed to start
 
 查找到 `IP_AUTODETECTION_METHOD`, 并且修改interface的网卡为节点机器的名称。
 
+有的版本查找不到，所以可以直接找到 `192.168.0.0/16`附近，添加上下面的环境变量
 ```yaml
             - name: IP_AUTODETECTION_METHOD
               value: "interface=eno1"
+```
+使用正则
+```yaml
+            - name: IP_AUTODETECTION_METHOD
+              value: "interface=en.*"
 ```

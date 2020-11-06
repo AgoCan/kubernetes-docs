@@ -58,7 +58,6 @@ ExecStart=/usr/local/bin/kube-apiserver   \
 --bind-address=0.0.0.0  \
 --authorization-mode=Node,RBAC   \
 --runtime-config=rbac.authorization.k8s.io/v1   \
---kubelet-https=true   \
 --anonymous-auth=false   \
 --enable-bootstrap-token-auth   \
 --token-auth-file=/etc/kubernetes/ssl/bootstrap-token.csv   \
@@ -110,12 +109,12 @@ scp  /usr/lib/systemd/system/kube-apiserver.service ${node02ip}:/usr/lib/systemd
 scp  /usr/lib/systemd/system/kube-apiserver.service ${node03ip}:/usr/lib/systemd/system/
 ```
 
-**参数解释**  
-- 注意点，线上的`--bind-address`绑定的必须使用内网ip  
-- 线上`--v=0` 日志级别根据自己的需求进行修改  
-- `kubernetes`的`service`的`nodePort`默认使用端口号是`30000-32767`，如果有需要可以自己的需求进行配置指定  
-- `--etcd-servers`指定`etcd`的服务端，进行访问，其中不能有引号，因为会导致`,`的分隔符不被承认，然后报错，把整个引号当成了一个整体    
-- `--service-cluster-ip-range`定制`service`的`ip`网段，根据自己网络需求，进行修改  
+**参数解释**
+- 注意点，线上的`--bind-address`绑定的必须使用内网ip
+- 线上`--v=0` 日志级别根据自己的需求进行修改
+- `kubernetes`的`service`的`nodePort`默认使用端口号是`30000-32767`，如果有需要可以自己的需求进行配置指定
+- `--etcd-servers`指定`etcd`的服务端，进行访问，其中不能有引号，因为会导致`,`的分隔符不被承认，然后报错，把整个引号当成了一个整体
+- `--service-cluster-ip-range`定制`service`的`ip`网段，根据自己网络需求，进行修改
 
 
 启动kube-apiserver

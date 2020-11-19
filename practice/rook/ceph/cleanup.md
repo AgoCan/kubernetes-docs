@@ -172,6 +172,13 @@ debug 2019-12-12 03:24:27.368 7f3d2c10edc0 -1 missing 'type' file and unable to 
 因为`osd`对磁盘类型，等一系列的选型问题。所以导致的创建失败。
 所以需要修改`cluster.yaml`的`useAllDevices: `值改成`true`重新创建即可
 
+## 清除所有环境
+```
+# 查看还没有被删除的内容
+kubectl api-resources -o name --verbs=list --namespaced| xargs -n 1 kubectl get --show-kind --ignore-not-found -n rook-ceph
+# 强制删除
+kubectl -n rook-ceph patch cephcluster.ceph.rook.io rook-ceph -p '{"metadata": {"finalizers": []}}' --type=merge
+```
 
 
 [参考文档](https://rook.io/docs/rook/v1.1/ceph-common-issues.html#osd-pods-are-not-created-on-my-devices)

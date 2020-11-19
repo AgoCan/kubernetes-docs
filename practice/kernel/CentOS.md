@@ -15,8 +15,9 @@ yum install https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
 yum --disablerepo=\* --enablerepo=elrepo-kernel repolist
 # 查看可用包
 yum --disablerepo=\* --enablerepo=elrepo-kernel list kernel*
-# 安装最新版本的kernel
+# 安装最新版本的kernel, 其中ml是稳定版本。现在安装是5.9.9版本。   lt是4.4.244版本 kernel-lt.x86_64
 yum --disablerepo=\* --enablerepo=elrepo-kernel install  kernel-ml.x86_64  -y
+yum --disablerepo=\* --enablerepo=elrepo-kernel install  kernel-ml-devel.x86_64  -y
 # 删除旧版本工具包
 yum remove kernel-tools-libs.x86_64 kernel-tools.x86_64  -y
 # 安装新版本工具包
@@ -34,7 +35,7 @@ grub2-set-default 0
 grub2-editenv list
 # 重启并检查
 reboot
-uname -r 
+uname -r
 ```
 
 参考：

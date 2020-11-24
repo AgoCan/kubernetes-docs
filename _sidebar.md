@@ -110,3 +110,4 @@
   * [14. kompose](practice/kompose/)
   * [15. Tidb](practice/tidb/)
   * [16. cert-manager](practice/cert-manager/)
+  * [17. kube-bench](practice/kube-bench)

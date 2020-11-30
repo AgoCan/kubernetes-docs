@@ -3,11 +3,11 @@
 ```
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 # C8
-#yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+#yum install -y https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
 # C7
-yum install https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+yum install -y https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
 # C6
-#yum install https://www.elrepo.org/elrepo-release-6.el6.elrepo.noarch.rpm
+#yum install -y  https://www.elrepo.org/elrepo-release-6.el6.elrepo.noarch.rpm
 
 #yum install kmod-r8168
 #yum --disablerepo=\* --enablerepo=elrepo install kmod-nvidia
@@ -37,6 +37,8 @@ grub2-editenv list
 reboot
 uname -r
 ```
+方式2: 直接去 https://pkgs.org/search/?q=kernel 查找包，直接安装
+
 
 参考：
 - https://www.kernel.org/

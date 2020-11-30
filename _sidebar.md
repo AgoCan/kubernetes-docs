@@ -111,3 +111,5 @@
   * [15. Tidb](practice/tidb/)
   * [16. cert-manager](practice/cert-manager/)
   * [17. kube-bench](practice/kube-bench)
+  * [18. kernel-update](practice/kernel)
+    * [18.1 CentOS](practice/kernel/CentOS.md)

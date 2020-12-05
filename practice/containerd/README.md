@@ -33,6 +33,11 @@ sudo containerd config default > /etc/containerd/config.toml
 # 重启 containerd
 sudo systemctl restart containerd
 ```
+
+```
+ctr -n k8s.io container ls
+```
+
 ## 下载调试工具
 ```
 VERSION="v1.19.0"

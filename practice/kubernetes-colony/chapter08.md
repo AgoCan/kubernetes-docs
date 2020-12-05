@@ -134,9 +134,17 @@ do
   scp kubelet.service.bak ${ip}:/usr/lib/systemd/system/kubelet.service
 done
 ```
+如果使用`containerd`进行部署的话，需要改动`kubelet`的参数,通过`containerd`的配置参数进行修改，[containerd文档](/practice/containerd/)
 
+kubelet修改参数,并且可以删除部分参数，例如 `cni` 的配置项
+```
+    --container-runtime=remote \
+    --container-runtime-endpoint=unix:///run/containerd/containerd.sock
 ```
 
+修改参数`vim /etc/containerd/config.toml`
+```
+sandbox_image = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1"
 ```
 
 参数介绍

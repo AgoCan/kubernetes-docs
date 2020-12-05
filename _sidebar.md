@@ -84,6 +84,7 @@
     * [5.5 harbor-faq](practice/harbor/faq.md)
   * [6. 英伟达GPU插件](practice/nvidia/)
     * [1. 安装nvidia-docker](practice/nvidia/deploy-driver.md)
+    * [2. containerd支持nvidia](practice/nvidia/containerd.md)
   * [7. rook](practice/rook/)
     * [7.1 rook-ceph](practice/rook/ceph/)
       * [7.1.1 部署](practice/rook/ceph/deployment.md)
@@ -113,3 +114,4 @@
   * [17. kube-bench](practice/kube-bench)
   * [18. kernel-update](practice/kernel)
     * [18.1 CentOS](practice/kernel/CentOS.md)
+  * [19. containerd](practice/containerd/)

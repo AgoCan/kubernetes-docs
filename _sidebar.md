@@ -115,3 +115,4 @@
   * [18. kernel-update](practice/kernel)
     * [18.1 CentOS](practice/kernel/CentOS.md)
   * [19. containerd](practice/containerd/)
+  * [20. kaniko](practice/kaniko/)

@@ -1,6 +1,6 @@
-# kanico
+# kaniko
 
-## 利用kanico构建镜像
+## 利用kaniko构建镜像
 ### 操作日志
 创建dockerfile
 ```bash

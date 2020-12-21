@@ -18,9 +18,18 @@ kubectl create namespace logging
 helm pull  --version 7.9.1 elastic/elasticsearch
 tar xf elasticsearch-7.9.1.tgz
 cd elasticsearch/
-# 创建需要default的storageclass
-helm install elasticsearch .
+# 创建需要default的 storageclass
+helm install -n logging elasticsearch .
 # 也可以直接创建
-#helm install elasticsearch elastic/elasticsearch
+helm install -n logging elasticsearch elastic/elasticsearch \
+--set esJavaOpts="-Xmx2g -Xms2g" \
+--set resources.limits.cpu="2000m" \
+--set resources.limits.memory="4Gi" \
+--set nodeSelector.type="elk" \
+--set volumeClaimTemplate.storageClassName="managed-nfs-storage" \
+--set replicas=3
+
+# 卸载
+helm uninstall -n logging elasticsearch
 
 ```

@@ -25,7 +25,8 @@ helm install prometheus -n monitor --version 13.0.1 prometheus-community/prometh
 --set server.persistentVolume.enabled=false \
 --set server.service.type=NodePort \
 --set pushgateway.enabled=false \
---set kubeStateMetrics.enabled=true
+--set kubeStateMetrics.enabled=true \
+--set server.retention=72h
 # 卸载
 helm uninstall -n monitor prometheus
 ```

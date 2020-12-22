@@ -38,8 +38,8 @@ helm uninstall -n logging elasticsearch
 
 ```
 helm install -n logging --version 7.9.1 kibana elastic/kibana \
---set resources.requests.memory=1Gi \
---set resources.limits.memory=1Gi \
+--set resources.requests.memory=2Gi \
+--set resources.limits.memory=2Gi \
 --set service.type=NodePort
 ```
 

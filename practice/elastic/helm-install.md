@@ -22,9 +22,9 @@ kubectl create namespace logging
 #helm install -n logging elasticsearch .
 # 也可以直接创建
 helm install -n logging elasticsearch elastic/elasticsearch \
---set esJavaOpts="-Xmx2g -Xms2g" \
---set resources.limits.cpu="2000m" \
---set resources.limits.memory="4Gi" \
+--set esJavaOpts="-Xmx1g -Xms1g" \
+--set resources.limits.cpu="1000m" \
+--set resources.limits.memory="2Gi" \
 --set nodeSelector.type="elk" \
 --set volumeClaimTemplate.storageClassName="managed-nfs-storage" \
 --set replicas=3

@@ -21,7 +21,7 @@ kubectl create namespace logging
 # 创建需要default的 storageclass
 #helm install -n logging elasticsearch .
 # 也可以直接创建
-helm install -n logging elasticsearch elastic/elasticsearch \
+helm install -n logging --version 7.9.1 elasticsearch elastic/elasticsearch \
 --set esJavaOpts="-Xmx1g -Xms1g" \
 --set resources.limits.cpu="1000m" \
 --set resources.limits.memory="2Gi" \
@@ -32,4 +32,21 @@ helm install -n logging elasticsearch elastic/elasticsearch \
 # 卸载
 helm uninstall -n logging elasticsearch
 
+```
+
+## 部署kibana
+
+```
+helm install -n logging --version 7.9.1 kibana elastic/kibana \
+--set resources.requests.memory=1Gi \
+--set resources.limits.memory=1Gi \
+--set service.type=NodePort
+```
+
+## 部署fluent-bit
+
+```
+helm repo add fluent https://fluent.github.io/helm-charts
+helm install fluent-bit fluent/fluent-bit
+helm show values fluent/fluent-bit
 ```

@@ -15,11 +15,11 @@ helm repo update
 # 创建命名空间
 kubectl create namespace logging
 # 拉取chart查看
-helm pull  --version 7.9.1 elastic/elasticsearch
-tar xf elasticsearch-7.9.1.tgz
-cd elasticsearch/
+#helm pull  --version 7.9.1 elastic/elasticsearch
+#tar xf elasticsearch-7.9.1.tgz
+#cd elasticsearch/
 # 创建需要default的 storageclass
-helm install -n logging elasticsearch .
+#helm install -n logging elasticsearch .
 # 也可以直接创建
 helm install -n logging elasticsearch elastic/elasticsearch \
 --set esJavaOpts="-Xmx2g -Xms2g" \

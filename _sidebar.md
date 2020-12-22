@@ -116,3 +116,4 @@
     * [18.1 CentOS](practice/kernel/CentOS.md)
   * [19. containerd](practice/containerd/)
   * [20. kaniko](practice/kaniko/)
+  * [21. loki日志收集](practice/loki/)

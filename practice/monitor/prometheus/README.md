@@ -1,7 +1,11 @@
 # prometheus
-[官网](https://prometheus.io/)  
-[coreos/kube-prometheus:github](https://github.com/coreos/kube-prometheus)  
-[coreos/prometheus-operator:github](https://github.com/coreos/prometheus-operator)  
+
+>  需要非常注意时间同步问题，会导致取不到数据
+
+
+[官网](https://prometheus.io/)
+[coreos/kube-prometheus:github](https://github.com/coreos/kube-prometheus)
+[coreos/prometheus-operator:github](https://github.com/coreos/prometheus-operator)
 
 ```bash
 # 安装prometheus-operator
@@ -18,7 +22,7 @@ kubectl get --raw /apis/monitoring.coreos.com/v1
 ```
 
 
-[参考文档](servicemesher.com/blog/prometheus-operator-manual/)  
+[参考文档](servicemesher.com/blog/prometheus-operator-manual/)
 
 
 https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config

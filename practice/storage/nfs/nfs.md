@@ -17,7 +17,7 @@ useradd -s /sbin/nologin -M -u 1000 nfs
 ```
 
 # 创建pv
-创建pv的时候，需要确保被调度宿主机上面已经安装了nfs客户端  
+创建pv的时候，需要确保被调度宿主机上面已经安装了nfs客户端
 创建的实质就是在宿主机执行了
 ```bash
 mount -t nfs 10.10.10.5:/data/data  /var/lib/kubelet/pods/7afed383-ef25-4c39-a5e5-62b459d0afc6/volumes/kubernetes.io~nfs/data
@@ -101,7 +101,7 @@ spec:
 
 # 问题
 一旦设置了其他方式的storageclass为default。那么PVC和pv的对应关系就会找不到。可以指定
-`storageClassName: ""`,该值设置为空即可  
+`storageClassName: ""`,该值设置为空即可
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -119,4 +119,10 @@ spec:
   selector:
     matchLabels:
       name: ev-dataset
+```
+
+### 增加并发
+```
+sudo echo "options sunrpc tcp_slot_table_entries=128" >>  /etc/modprobe.d/sunrpc.conf
+sudo echo "options sunrpc tcp_max_slot_table_entries=128" >>  /etc/modprobe.d/sunrpc.conf
 ```

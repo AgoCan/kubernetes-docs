@@ -47,6 +47,6 @@ helm install -n logging --version 7.9.1 kibana elastic/kibana \
 
 ```
 helm repo add fluent https://fluent.github.io/helm-charts
-helm install fluent-bit fluent/fluent-bit
+helm install fluent-bit -n logging --version 0.7.13 fluent/fluent-bit
 helm show values fluent/fluent-bit
 ```

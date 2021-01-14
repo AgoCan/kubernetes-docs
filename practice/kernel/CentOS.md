@@ -39,6 +39,7 @@ uname -r
 ```
 方式2: 直接去 https://pkgs.org/search/?q=kernel 查找包，直接安装
 
+http://mirrors.netix.net/elrepo/kernel/el7/x86_64/RPMS/
 
 参考：
 - https://www.kernel.org/

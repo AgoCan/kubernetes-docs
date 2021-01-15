@@ -12,9 +12,13 @@
 init 3
 ```
 
-安装依赖
+安装依赖,默认的gcc版本不够，使用`devtoolset-9`,可以安装`kernel5.x`版本
 ```bash
-yum -y install gcc kernel-devel
+yum -y install gcc kernel kernel-devel
+# yum -y install centos-release-scl
+# yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
+# scl enable devtoolset-9 bash临时使用
+# echo "source /opt/rh/devtoolset-9/enable" >>/etc/profile 长期使用
 ```
 关闭集显
 ```bash
@@ -38,13 +42,15 @@ lsmod ｜ grep nouveau
 # 驱动下载地址https://www.geforce.cn/drivers
 # 请选择自己需要的版本号
 # 需要加上权限
+#source /opt/rh/devtoolset-9/enable
 chmod +x NVIDIA-Linux-x86_64-418.67.run
 # 不使用命令 直接复制 上面地址也可以在浏览器直接下载
 ./NVIDIA-Linux-x86_64-418.67.run --no-opengl-files
+./NVIDIA-Linux-x86_64-418.67.run --no-opengl-files -s # 静默安装
 ```
 
 # 安装nvidia-docker2
-https://github.com/NVIDIA/nvidia-docker  
+https://github.com/NVIDIA/nvidia-docker
 github,可以在readme就轻松找到安装内容
 
 以下是针对centos7的部署
@@ -94,3 +100,7 @@ docker run -it -e NVIDIA_VISIBLE_DEVICES=all ubuntu:16.04 bash
 nvidia-docker build -t nvidia-test:v1 .
 docker build -e NVIDIA_VISIBLE_DEVICES=all -t nvidia-test:v1 .
 ```
+
+参考文档：
+
+http://www.vpser.net/manage/centos-6-upgrade-gcc.html

@@ -49,7 +49,7 @@ kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
 ## 设置名称空间首选项
-您可以为该上下文中的所有后续`kubectl`命令永久保存名称空间。  
+您可以为该上下文中的所有后续`kubectl`命令永久保存名称空间。
 
 ```
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
@@ -61,6 +61,7 @@ kubectl config view --minify | grep namespace:
 
 创建服务时，它会创建一个相应的`DNS条目`。此项的形式为`<service-name>.<namespace-name>.svc.cluster.local`，这意味着如果容器仅使用`<service-name>`，它将解析为名称空间本地的服务。这对于在多个名称空间（例如开发（Development），预生产（Staging ）和生产（Production））中使用相同的配置很有用。如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
 
+> 注：  `.svc.cluster.local` 在init可能会导致访问失败，所以使用 `<service-name>.<namespace-name>` 即可
 ## 并非所有对象都在命名空间中
 大多数`Kubernetes`资源（例如 `pods`, `services`, `replication controllers`, 还有其他）都位于某些命名空间中。但是，名称空间资源本身并不在名称空间中。而且低级资源（例如节点和`persistentVolumes`）不在任何命名空间中。
 
@@ -111,4 +112,4 @@ nodeSelector
 
 参考文档：
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/  
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/

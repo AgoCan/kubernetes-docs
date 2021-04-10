@@ -25,13 +25,17 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+# 替换腾讯源
+#sudo sed -i 's+download.docker.com+mirrors.cloud.tencent.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 ## 安装 containerd
-sudo yum update -y && sudo yum install -y containerd.io
+#sudo yum update -y && sudo yum install -y containerd.io
+sudo yum install -y containerd.io
 # 配置 containerd
 sudo mkdir -p /etc/containerd
 sudo containerd config default > /etc/containerd/config.toml
 # 重启 containerd
 sudo systemctl restart containerd
+sudo systemctl enable containerd
 ```
 
 ```

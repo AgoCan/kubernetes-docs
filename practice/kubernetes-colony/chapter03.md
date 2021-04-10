@@ -1,7 +1,9 @@
 # 创建etcd集群
+http://play.etcd.io/
+
 etcd 一致性分布式存储
 
-[CAP原则百度百科](https://baike.baidu.com/item/CAP%E5%8E%9F%E5%88%99/5712863?fr=aladdin)  
+[CAP原则百度百科](https://baike.baidu.com/item/CAP%E5%8E%9F%E5%88%99/5712863?fr=aladdin)
 
 https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md
 
@@ -110,7 +112,7 @@ do
   ((name_id++))
 done
 ```
-**注意**： 监听地址修改成对应主机的`IP`地址,即，此处的`10.10.10.6`和`10.10.10.7`    
+**注意**： 监听地址修改成对应主机的`IP`地址,即，此处的`10.10.10.6`和`10.10.10.7`
 这是10.10.10.5节点的配置，其他两个etcd节点只要将上面的IP地址改成相应节点的IP地址即可。ETCD_NAME换成对应节点的etcd-node01 etcd-node02 etcd-node03 。
 
 其中 **`ETCD_INITIAL_CLUSTER`** 是指定集群的机器，不能出现空格。不然会抛出异常错误
@@ -137,7 +139,7 @@ done
 
 在所有的 kubernetes master 节点重复上面的步骤，直到所有机器的 etcd 服务都已启动。
 
-如果打开的防火墙，请把2379和2380端口开发，以centos7为例：  
+如果打开的防火墙，请把2379和2380端口开发，以centos7为例：
 
 ```bash
 firewall-cmd --zone=public --add-port=2380/tcp --permanent
@@ -165,4 +167,9 @@ etcdctl \
   --cert-file=/etc/kubernetes/ssl/kubernetes.pem \
   --key-file=/etc/kubernetes/ssl/kubernetes-key.pem \
   cluster-health
+```
+
+etcd 3.4版本
+```
+etcdctl --cacert=/etc/kubernetes/ssl/ca.pem --cert=/etc/kubernetes/ssl/kubernetes.pem --key=/etc/kubernetes/ssl/kubernetes-key.pem  --endpoints="https://192.168.126.31:2379 https://192.168.126.32:2379" endpoint health
 ```

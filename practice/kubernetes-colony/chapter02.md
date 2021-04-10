@@ -1,9 +1,9 @@
 cfssl 二进制下载
 
-证书的方式使用的是 **域名** 的方式。既，/etc/hosts 或者dns服务需要配置好域名的解析  
+证书的方式使用的是 **域名** 的方式。既，/etc/hosts 或者dns服务需要配置好域名的解析
 如有特殊需求，可以在域名的地方改成ip即可
 
-且证书配置是10年期限的，有必要的话，请把证书替换成一年的，替换证书保证线上的安全性  
+且证书配置是10年期限的，有必要的话，请把证书替换成一年的，替换证书保证线上的安全性
 
 **生成的 CA 证书和秘钥文件如下：**
 
@@ -17,7 +17,7 @@ kube-proxy-key.pem
 admin.pem
 admin-key.pem
 ```
-**使用证书的组件如下：**  
+**使用证书的组件如下：**
 
 
 - `etcd`：使用 ca.pem、kubernetes-key.pem、kubernetes.pem；
@@ -46,14 +46,14 @@ export PATH=/usr/local/bin:$PATH
 ```
 
 ### 创建ca证书
-自用证书： https://freessl.cn/  
+自用证书： https://freessl.cn/
 
 字段说明
 
-`ca-config.json`：可以定义多个 profiles，分别指定不同的过期时间、使用场景等参数；后续在签名证书时使用某个 profile；  
-`signing`：表示该证书可用于签名其它证书；生成的 ca.pem 证书中 CA=TRUE；  
-`server auth`：表示client可以用该 CA 对server提供的证书进行验证；  
-`client auth`：表示server可以用该CA对client提供的证书进行验证；  
+`ca-config.json`：可以定义多个 profiles，分别指定不同的过期时间、使用场景等参数；后续在签名证书时使用某个 profile；
+`signing`：表示该证书可用于签名其它证书；生成的 ca.pem 证书中 CA=TRUE；
+`server auth`：表示client可以用该 CA 对server提供的证书进行验证；
+`client auth`：表示server可以用该CA对client提供的证书进行验证；
 
 ```bash
 mkdir /root/ssl
@@ -103,7 +103,7 @@ ls ca*
 
 ### 创建etcd证书
 
-其中本次的`etcd`和下面的`kubernetes`进行通用  
+其中本次的`etcd`和下面的`kubernetes`进行通用
 
 ```bash
 cat >> etcd-csr.json << EOF
@@ -134,7 +134,7 @@ cat >> etcd-csr.json << EOF
 }
 EOF
 ```
-**生成 etcd 证书和私钥**  
+**生成 etcd 证书和私钥**
 
 ```
 /usr/local/bin/cfssl gencert -ca=ca.pem \
@@ -186,9 +186,9 @@ cat >> kubernetes-csr.json << EOF
 }
 EOF
 ```
-- 如果 hosts 字段不为空则需要指定授权使用该证书的 IP 或域名列表，由于该证书后续被 etcd 集群和 kubernetes master 集群使用，所以上面分别指定了 etcd 集群、kubernetes master 集群的主机 IP 和 kubernetes 服务的服务 IP（一般是 kube-apiserver 指定的 service-cluster-ip-range 网段的第一个IP，如 10.254.0.1）。  
-- 这是最小化安装的kubernetes集群，包括一个私有镜像仓库，三个节点的kubernetes集群，以上物理节点的IP也可以更换为主机名。  
-**生成 kubernetes 证书和私钥**  
+- 如果 hosts 字段不为空则需要指定授权使用该证书的 IP 或域名列表，由于该证书后续被 etcd 集群和 kubernetes master 集群使用，所以上面分别指定了 etcd 集群、kubernetes master 集群的主机 IP 和 kubernetes 服务的服务 IP（一般是 kube-apiserver 指定的 service-cluster-ip-range 网段的第一个IP，如 10.254.0.1）。
+- 这是最小化安装的kubernetes集群，包括一个私有镜像仓库，三个节点的kubernetes集群，以上物理节点的IP也可以更换为主机名。
+**生成 kubernetes 证书和私钥**
 
 ```bash
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes kubernetes-csr.json | cfssljson -bare kubernetes
@@ -196,7 +196,7 @@ ls kubernetes*
 ```
 
 ### 创建 admin 证书
-创建 admin 证书签名请求文件 admin-csr.json：  
+创建 admin 证书签名请求文件 admin-csr.json：
 ```bash
 cat >> admin-csr.json << EOF
 {
@@ -276,3 +276,12 @@ scp -r /etc/kubernetes ${node02ip}:/etc/kubernetes
 scp -r /etc/kubernetes ${node03ip}:/etc/kubernetes
 cd ..
 ```
+
+### 利用openssl生成rsa证书
+
+生成 私钥 `sa.key` 和 `sa.pub`, 其中公钥给`kube-apiserver`，私钥给`kube-controller-manager`使用。
+```
+openssl genrsa -out sa.key 1024
+openssl rsa -in sa.key -pubout -out sa.pub
+```
+相关

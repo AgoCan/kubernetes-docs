@@ -124,3 +124,13 @@ systemctl enable kube-apiserver
 systemctl start kube-apiserver
 systemctl status kube-apiserver
 ```
+
+## 1.20 版本
+
+> 注意： 其中1.20版本强制需要两个参数，`--service-account-signing-key-file` `--service-account-issuer`
+> ```
+> --service-account-key-file=/etc/kubernetes/ssl/sa.pub \
+> --service-account-signing-key-file=/etc/kubernetes/ssl/sa.key \
+> --service-account-issuer=https://kubernetes.default.svc.cluster.local \
+> ```
+> 其中生成rsa的证书命令，在生成证书的章节可以看到

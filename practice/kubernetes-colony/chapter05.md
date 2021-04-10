@@ -41,7 +41,7 @@ scp  /usr/lib/systemd/system/kube-controller-manager.service ${node03ip}:/usr/li
 **参数**
 - 其中还可以加`--service-cluster-ip-range`必须和`kube-apiserver`一致
 - `--cluster-cidr`  指定 pod-dir
-
+> 注意： 1.20 需要搭配rsa私钥 `--service-account-private-key-file=/etc/kubernetes/pki/sa.key`
 
 启动 `kube-controller-manager`
 
@@ -57,4 +57,36 @@ systemctl status kube-controller-manager
 
 ```
 kubectl get componentstatuses
+```
+
+## 1.20
+
+```
+export K8S_API_URL=${master01ip}
+
+/usr/local/bin/kubectl config set-cluster kubernetes \
+--certificate-authority=/etc/kubernetes/ssl/ca.pem \
+--embed-certs=true \
+--server=https://${K8S_API_URL}:6443 \
+--kubeconfig=controller-manager.conf
+
+
+/usr/local/bin/kubectl  config set-credentials system:controller-manager \
+--client-certificate=/etc/kubernetes/ssl/kubernetes.pem \
+--client-key=/etc/kubernetes/ssl/kubernetes-key.pem \
+--embed-certs=true \
+--kubeconfig=controller-manager.conf
+
+
+/usr/local/bin/kubectl  config set-context system:kube-controller-manager@kubernetes \
+--cluster=kubernetes \
+--user=system:kube-controller-manager \
+--kubeconfig=controller-manager.conf
+
+# 设置默认上下文
+/usr/local/bin/kubectl  config use-context system:kube-controller-manager@kubernetes --kubeconfig=controller-manager.conf
+```
+
+```
+ --requestheader-client-ca-file=/etc/kubernetes/ssl/ca.pem
 ```

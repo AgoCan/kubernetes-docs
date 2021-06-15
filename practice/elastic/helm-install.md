@@ -50,3 +50,13 @@ helm repo add fluent https://fluent.github.io/helm-charts
 helm install fluent-bit -n logging --version 0.7.13 fluent/fluent-bit
 helm show values fluent/fluent-bit
 ```
+
+参考文档：
+
+https://docs.fluentbit.io/manual/installation/kubernetes
+
+https://artifacthub.io/packages/helm/elastic/elasticsearch
+
+https://artifacthub.io/packages/helm/bitnami/kibana
+
+https://artifacthub.io/packages/helm/fluent/fluent-bit

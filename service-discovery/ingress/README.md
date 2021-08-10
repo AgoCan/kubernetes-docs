@@ -1,4 +1,8 @@
-# Ingress
+# Ingres
+```bash
+for i in `kubectl get ingress -n default  | grep ingress| awk '{print $1}'`;do kubectl patch ingress -n default $i -p '{"spec": {"rules": [{"host": "new.hankbook.net"}]}}';done
+```
+
 Ingress 是对集群中服务的外部访问进行管理的 API 对象，典型的访问方式是 HTTP。
 
 Ingress 可以提供负载均衡、SSL 终结和基于名称的虚拟托管。

@@ -50,3 +50,18 @@ helm repo add fluent https://fluent.github.io/helm-charts
 helm install fluent-bit -n logging --version 0.7.13 fluent/fluent-bit
 helm show values fluent/fluent-bit
 ```
+
+
+## FAQ
+如果docker的目录不是默认目录，则需要把相对应的docker目录给挂在到fluent里面去。不然会获取不到日志内容
+
+例如
+```
+ln -s /data/docker /var/lib/docker
+# 就需要把 /data/docker挂在到fluent下面去
+```
+
+因为kubernetes的日志是挂载docker的容器信息到
+```
+/data/docker/containers -> /var/log/pods/  -> /var/log/containers
+```

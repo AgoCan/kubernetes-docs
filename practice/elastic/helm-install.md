@@ -52,6 +52,7 @@ helm show values fluent/fluent-bit
 ```
 
 
+
 ## FAQ
 如果docker的目录不是默认目录，则需要把相对应的docker目录给挂在到fluent里面去。不然会获取不到日志内容
 
@@ -65,3 +66,12 @@ ln -s /data/docker /var/lib/docker
 ```
 /data/docker/containers -> /var/log/pods/  -> /var/log/containers
 ```
+参考文档：
+
+https://docs.fluentbit.io/manual/installation/kubernetes
+
+https://artifacthub.io/packages/helm/elastic/elasticsearch
+
+https://artifacthub.io/packages/helm/bitnami/kibana
+
+https://artifacthub.io/packages/helm/fluent/fluent-bit

@@ -95,6 +95,8 @@
       * [8.2.1 prometheus部署](practice/monitor/prometheus/deploy-prometheus.md)
   * [9. 日志收集](practice/elastic/)
     * [9.1 log-pilot+ES+Kibana环境搭建](practice/elastic/deploy2.md)
+    * [9.2 helm部署](practice/elastic/helm-install.md)
+    * [9.2 operator部署](practice/elastic/operator.md)
   * [10. mysql](practice/mysql/)
     * [10.1 手动部署](practice/mysql/manual.md)
   * [11. gitlab](practice/gitlab/)

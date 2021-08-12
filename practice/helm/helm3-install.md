@@ -8,7 +8,7 @@ https://helm.sh/docs/topics/v2_v3_migration/
 
 Helm 3具有许多新功能，但其中一些功能应在此处重点介绍：
 
-- 提出了tiller组件
+- 剔除了tiller组件
   - 用客户端/库体系结构替换客户端/服务器（helm仅二进制）
   - 现在基于每个用户提供安全性（授权给Kubernetes用户群集安全性）
   - 现在，将发布版本存储为集群中的秘密，并且发布对象元数据已更改
@@ -52,7 +52,7 @@ Helm 3具有许多新功能，但其中一些功能应在此处重点介绍：
   - 发布二进制文件现在托管在 get.helm.sh
 
 ## 部署
-下载二进制 https://github.com/helm/helm/releases  
+下载二进制 https://github.com/helm/helm/releases
 ```bash
 wget https://get.helm.sh/helm-v3.1.1-linux-amd64.tar.gz
 # 只需要下载二进制即安装完成
@@ -60,7 +60,7 @@ mv linux-amd64/helm /usr/local/bin/helm
 # 添加仓库
 #helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add stable https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
-helm repo update  
+helm repo update
 # 查找
 helm search repo jenkins
 # 创建一个实例

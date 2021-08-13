@@ -129,3 +129,6 @@ registry的镜像存储目录，需要设置registry用户的用户及用户组�
           mountPath: /chart_storage
           subPath: {{ .Values.persistence.persistentVolumeClaim.chartmuseum.subPath }}
 ```
+
+踩坑四： 域名配置问题
+> 域名一旦配置了，k8s内网访问，而宿主机访问不了。所以应该做一下规划，并且做hosts解析

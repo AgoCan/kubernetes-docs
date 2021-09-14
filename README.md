@@ -15,6 +15,8 @@
 
 centos所有镜像下载地址： http://vault.centos.org/
 
+ubuntu所有镜像下载地址： http://cdimage.ubuntu.com/
+
 # 联系方式
 
 学习交流QQ群: 243969436

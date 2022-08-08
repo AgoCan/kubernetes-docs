@@ -21,16 +21,16 @@ jenkins参考文档 https://www.jianshu.com/p/57977e69613f
 
 
 # 关于上线的小事
+
 上线遇见的小事记录
-## 有些业务，会要长期占有线程，比如3小时，而上线默认的时间是30秒就把pod给删除了。
+
+- 有些业务，会要长期占有线程，比如3小时，而上线默认的时间是30秒就把pod给删除了。
 
 解决方案：
 
-## 关于替换configmap的热更新问题
+- 关于替换configmap的热更新问题
 configmap除了挂载目录是可以热更新，而环境变量和subpath（挂载单独文件）的方式是不能热更新的
 
 解决方案：
 
 1. 更新完configmap之后，patch更新一下pod(或者其他例如deployment)的annotations字段
-
-##

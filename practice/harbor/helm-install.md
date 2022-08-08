@@ -80,16 +80,19 @@ kubectl delete pvc database-data-harbor-harbor-database-0
 ```
 
 ### helm harbor 1.4.1版本之前有权限问题
+
 > 注意： 1.4.2下面的init容器还需要重新修改一下
 >       daemon.json，和证书的下载需要匹配一下，其余的跟compose使用类似
+
+***以下的value.yaml的配置文件，由于文档转换问题，就用`...`代替了***
 
 redis数据目录，/var/lib/redis，需要设置redis的用户及用户组权限
 
 ```yaml
       initContainers:
       - name: "change-permission-of-directory"
-        image: {{ .Values.database.internal.initContainerImage.repository }}:{{ .Values.database.internal.initContainerImage.tag }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        image: ...
+        imagePullPolicy: ...
         command: ["/bin/sh"]
         args: ["-c", "chown -R 999:999 /var/lib/redis"]
         volumeMounts:
@@ -105,14 +108,14 @@ registry的镜像存储目录，需要设置registry用户的用户及用户组�
 ```yaml
       initContainers:
       - name: "change-permission-of-directory"
-        image: {{ .Values.database.internal.initContainerImage.repository }}:{{ .Values.database.internal.initContainerImage.tag }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        image: ...
+        imagePullPolicy: ...
         command: ["/bin/sh"]
-        args: ["-c", "chown -R 10000:10000 {{ .Values.persistence.imageChartStorage.filesystem.rootdirectory }}"]
+        args: ["-c", "chown -R 10000:10000 $rootdirectory"]
         volumeMounts:
         - name: registry-data
-          mountPath: {{ .Values.persistence.imageChartStorage.filesystem.rootdirectory }}
-          subPath: {{ .Values.persistence.persistentVolumeClaim.registry.subPath }}
+          mountPath: ...
+          subPath: ...
 ```
 
 踩坑三：chartmuseum存储目录权限，导致chart推送失败
@@ -120,14 +123,14 @@ registry的镜像存储目录，需要设置registry用户的用户及用户组�
 ```yaml
       initContainers:
       - name: "change-permission-of-directory"
-        image: {{ .Values.database.internal.initContainerImage.repository }}:{{ .Values.database.internal.initContainerImage.tag }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        image: ...
+        imagePullPolicy: ...
         command: ["/bin/sh"]
         args: ["-c", "chown -R 10000:10000 /chart_storage"]
         volumeMounts:
         - name: chartmuseum-data
           mountPath: /chart_storage
-          subPath: {{ .Values.persistence.persistentVolumeClaim.chartmuseum.subPath }}
+          subPath: ...
 ```
 
 踩坑四： 域名配置问题
